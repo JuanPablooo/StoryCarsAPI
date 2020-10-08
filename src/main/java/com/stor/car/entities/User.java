@@ -1,11 +1,16 @@
 package com.stor.car.entities;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
+import javax.persistence.Entity;
 
 @Data
 @Builder
-public class User {
+@Entity
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends AbstractEntity{
     private String email;
     private String password;
 }
