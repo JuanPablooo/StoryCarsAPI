@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 
-@Entity
+//@Entity
 @Builder
 @Data
 public class Vehicle {
