@@ -1,6 +1,8 @@
 spring:
+  flyway:
+    validate-migration-naming: false
   datasource:
-    url: jdbc:mysql://localhost:3306/storcars?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/storcars?useTimezone=true&serverTimezone=UTC
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
