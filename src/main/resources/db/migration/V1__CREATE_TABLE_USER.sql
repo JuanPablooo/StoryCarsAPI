@@ -2,6 +2,6 @@ CREATE TABLE storcars.user (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    createAt DATETIME,
-    updateAt DATETIME
+    create_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+    update_at DATETIME NOT NULL DEFAULT NOW()
 );
