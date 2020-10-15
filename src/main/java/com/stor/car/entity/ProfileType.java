@@ -1,4 +1,4 @@
-package com.stor.car.entities;
+package com.stor.car.entity;
 
 public class ProfileType {
 

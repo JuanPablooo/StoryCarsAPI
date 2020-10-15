@@ -1,9 +1,7 @@
-package com.stor.car.entities;
+package com.stor.car.entity;
 
 import lombok.Builder;
 import lombok.Data;
-
-import javax.persistence.Entity;
 
 //@Entityg
 @Builder
