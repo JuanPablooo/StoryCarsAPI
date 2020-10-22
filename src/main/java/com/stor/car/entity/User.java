@@ -2,6 +2,7 @@ package com.stor.car.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Data
@@ -11,6 +12,9 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends AbstractEntity{
+
+    @Column(unique = true)
     private String email;
+
     private String password;
 }
