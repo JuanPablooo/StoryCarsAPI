@@ -1,9 +1,9 @@
 package com.stor.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -17,4 +17,8 @@ public class User extends AbstractEntity{
     private String email;
 
     private String password;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Profile profile;
 }
