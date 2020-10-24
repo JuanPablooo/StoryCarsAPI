@@ -28,7 +28,6 @@ public class UserResource {
 
     @PostMapping("")
     public ResponseEntity<User> save(@RequestBody User user){
-        System.out.println("salve");
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
