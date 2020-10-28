@@ -13,8 +13,18 @@ import java.util.stream.Collectors;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
 public class Profile extends AbstractEntity{
-
+    public Profile() {
+        super();
+        System.out.println("cobtruct");
+        add(TypeProfile.USER);
+    }
+    public Profile(User user, String thumbnail, List<TypeProfile> typeProfiles){
+        super();
+        System.out.println("sddfsdf");
+        add(TypeProfile.USER);
+    }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
@@ -35,15 +45,6 @@ public class Profile extends AbstractEntity{
         this.profileTypes.add(typeProfile.getId());
     }
 
-    public Profile() {
-        super();
-        System.out.println("cobtruct");
-        add(TypeProfile.USER);
-    }
-    public Profile(User user, String thumbnail, List<TypeProfile> typeProfiles){
-        super();
-        System.out.println("sddfsdf");
-        add(TypeProfile.USER);
-    }
+
 
 }
