@@ -3,11 +3,11 @@ package com.stor.car.resources;
 import com.stor.car.entity.User;
 import com.stor.car.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -17,8 +17,8 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping("")
-    public ResponseEntity<List<User>> getAll(){
-        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
+    public ResponseEntity<Page<User>> getAll(Pageable pageable){
+        return new ResponseEntity<>(userService.listUsers(pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/{id}", "/{id}/"})

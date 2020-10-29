@@ -3,9 +3,10 @@ package com.stor.car.services;
 import com.stor.car.entity.User;
 import com.stor.car.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +15,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> listUsers(){
-        return userRepository.findAll();
+    public Page<User> listUsers(Pageable pageable){
+        return userRepository.findAll(pageable);
     }
 
     public User findOneById(Long id){
