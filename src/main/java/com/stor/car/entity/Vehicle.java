@@ -1,20 +1,20 @@
 package com.stor.car.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Entity;
 
 @Entity
 @Builder
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Vehicle extends AbstractEntity {
 
     private String name;
 
-    private Image thumbnail;
+    private String thumbnail;
 
     private String description;
 
