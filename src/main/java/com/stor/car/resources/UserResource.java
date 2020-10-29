@@ -31,9 +31,9 @@ public class UserResource {
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
-//    @PutMapping(value = {"", "/"})
-//    public ResponseEntity<User> update(@RequestBody User user){
-//        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
-//    }
+    @PutMapping(value = {"", "/"})
+    public ResponseEntity<User> update(@RequestBody User user){
+        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+    }
 
 }

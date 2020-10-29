@@ -5,9 +5,9 @@ import com.stor.car.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -29,13 +29,16 @@ public class UserService {
     }
 
     public User update(User user){
-        getById(user.getId());
+        getByIdOrThrow(user.getId());
         return userRepository.save(user);
     }
 
-    private User getById(Long id){
-        Optional<User> userOpt = userRepository.findById(id);
-//        return  userOpt.orElseThrow();
-        return null;
+    private User getById(Long id) {
+        return getByIdOrThrow(id);
+    }
+
+    private User getByIdOrThrow(Long id){
+        return  userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("user not founded by id " + id));
     }
 }
