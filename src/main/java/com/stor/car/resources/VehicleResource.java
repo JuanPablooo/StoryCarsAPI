@@ -2,6 +2,7 @@ package com.stor.car.resources;
 
 import com.stor.car.entity.Vehicle;
 import com.stor.car.services.VehicleService;
+import com.stor.car.uploads.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +14,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/vehicle")
 public class VehicleResource {
 
+    private final VehicleService vehicleService;
+
     @Autowired
-    private VehicleService vehicleService;
+    public VehicleResource(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
+
 
     @GetMapping("")
     public ResponseEntity<Page<Vehicle>> getAll(Pageable pageable){
         return new ResponseEntity<>(vehicleService.listVehicles(pageable), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/{id}", "/{id}/"})
+    @GetMapping("/{id}")
     public ResponseEntity<Vehicle> getOne(@PathVariable Long id){
         return new ResponseEntity<>(vehicleService.findOneById(id), HttpStatus.OK);
     }
@@ -31,8 +37,13 @@ public class VehicleResource {
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
     }
 
-    @PutMapping(value = {"", "/"})
+    @PutMapping("")
     public ResponseEntity<Vehicle> update(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.update(vehicle), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/image")
+    public ResponseEntity<?> uploadImage(@PathVariable Long id,  @RequestBody FileUpload fileUpload){
+        return new ResponseEntity<>(vehicleService.uploadImage(fileUpload, id), HttpStatus.OK);
     }
 }
