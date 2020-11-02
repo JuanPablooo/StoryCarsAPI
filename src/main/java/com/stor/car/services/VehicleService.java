@@ -64,4 +64,9 @@ public class VehicleService {
         String name =  System.currentTimeMillis() + "";
         return new FileUploadUrl(fireBase.upLoad(file, name));
     }
+
+    public void deleteById(Long id){
+        getByIdOrThrow(id);
+        vehicleRepository.deleteById(id);
+    }
 }
