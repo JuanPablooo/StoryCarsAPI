@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/vehicle")
+@RequestMapping("/vehicle")
 public class VehicleResource {
 
     private final VehicleService vehicleService;

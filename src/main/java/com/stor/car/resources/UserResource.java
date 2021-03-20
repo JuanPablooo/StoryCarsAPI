@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 public class UserResource {
 
     @Autowired
