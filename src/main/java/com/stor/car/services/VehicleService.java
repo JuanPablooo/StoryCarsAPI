@@ -8,7 +8,7 @@ import com.stor.car.uploads.FireBaseStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+//import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -48,7 +48,7 @@ public class VehicleService {
 
     private Vehicle getByIdOrThrow(Long id){
         return  vehicleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("vehicle not founded by id " + id));
+                .orElseThrow(null);
     }
 
     public FileUploadUrl uploadImage(FileUpload file, Long id) {

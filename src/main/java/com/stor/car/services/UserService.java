@@ -5,7 +5,6 @@ import com.stor.car.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -39,6 +38,6 @@ public class UserService {
 
     private User getByIdOrThrow(Long id){
         return  userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("user not founded by id " + id));
+                .orElseThrow(null);
     }
 }
