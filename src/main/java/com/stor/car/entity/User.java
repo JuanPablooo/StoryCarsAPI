@@ -2,6 +2,7 @@ package com.stor.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

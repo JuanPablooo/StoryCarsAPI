@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Profile extends AbstractEntity{
