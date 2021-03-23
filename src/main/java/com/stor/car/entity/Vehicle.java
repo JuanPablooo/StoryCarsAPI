@@ -6,8 +6,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,5 +30,12 @@ public class Vehicle extends AbstractEntity {
     private BigDecimal price;
 
     private String type;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "image_vehicle",
+            joinColumns = @JoinColumn(name = "image_id"),
+            inverseJoinColumns = @JoinColumn(name = "vehicle_id")
+    )
+    private List<Image> images = new ArrayList<>();
 
 }
