@@ -32,9 +32,10 @@ public class Vehicle extends AbstractEntity {
     private String type;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "image_vehicle",
-            joinColumns = @JoinColumn(name = "image_id"),
-            inverseJoinColumns = @JoinColumn(name = "vehicle_id")
+    @JoinTable(
+            name = "image_vehicle",
+            joinColumns = @JoinColumn(name = "vehicle_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id")
     )
     private List<Image> images = new ArrayList<>();
 

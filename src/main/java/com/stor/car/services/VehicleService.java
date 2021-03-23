@@ -1,5 +1,6 @@
 package com.stor.car.services;
 
+import com.stor.car.entity.Image;
 import com.stor.car.entity.Vehicle;
 import com.stor.car.repositories.VehicleRepository;
 import com.stor.car.uploads.FileUpload;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 
 @Service
@@ -26,8 +28,12 @@ public class VehicleService {
 
     }
 
-    public Page<Vehicle> listVehicles(Pageable pageable){
+    public Page<Vehicle> getVehiclesPageable(Pageable pageable){
         return vehicleRepository.findAll(pageable);
+    }
+
+    public List<Vehicle> getAllVehiclesNoPageable(){
+        return vehicleRepository.findAll();
     }
 
     public Vehicle findOneById(Long id){
@@ -47,22 +53,31 @@ public class VehicleService {
         return getByIdOrThrow(id);
     }
 
-    private Vehicle getByIdOrThrow(Long id){
-        return  vehicleRepository.findById(id)
-                .orElseThrow(null);
-    }
-
-    public FileUploadUrl uploadImage(FileUpload file, Long id) {
+    public FileUploadUrl uploadImageThumbnailToVehicle(FileUpload file, Long id) {
         Vehicle vehicle = getByIdOrThrow(id);
-        //TODO refactor strategy of generate random name  to image
-        FileUploadUrl url = creteNameImageAndMakeUpload(file);
-        file.setMimeType(MIME_TYPE_IMG);
-
-        vehicle.setThumbnail(url.getUrl());
+        FileUploadUrl fileUploadUrl = uploadImage(file);
+        vehicle.setThumbnail(fileUploadUrl.getUrl());
         vehicleRepository.save(vehicle);
-        return url;
+        return fileUploadUrl;
     }
 
+    public FileUploadUrl uploadImageToVehicle(FileUpload file, Long id) {
+        Vehicle vehicle = getByIdOrThrow(id);
+
+        FileUploadUrl fileUploadUrl = uploadImage(file);
+        String url = fileUploadUrl.getUrl();
+        Image image = Image.builder().url( url ).build();
+        vehicle.getImages().add(image);
+
+        vehicleRepository.save(vehicle);
+        return fileUploadUrl;
+    }
+
+    public FileUploadUrl uploadImage(FileUpload file) {
+        FileUploadUrl fileUploadUrl = creteNameImageAndMakeUpload(file);
+        file.setMimeType(MIME_TYPE_IMG);
+        return fileUploadUrl ;
+    }
 
     private FileUploadUrl creteNameImageAndMakeUpload(FileUpload file){
         String name =  URL_FOLDER + System.currentTimeMillis();
@@ -72,5 +87,10 @@ public class VehicleService {
     public void deleteById(Long id){
         getByIdOrThrow(id);
         vehicleRepository.deleteById(id);
+    }
+
+    private Vehicle getByIdOrThrow(Long id){
+        return  vehicleRepository.findById(id)
+                .orElseThrow(null);
     }
 }
