@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 public class Images extends AbstractEntity {
     private String url;
 

@@ -3,13 +3,14 @@ package com.stor.car.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import java.math.BigDecimal;
 
 @Entity
+@Data
 @Builder
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@EqualsAndHashCode(callSuper = true)
 public class Vehicle extends AbstractEntity {
 
     private String name;
@@ -20,7 +21,8 @@ public class Vehicle extends AbstractEntity {
 
     private String year;
 
-    private Double price;
+    private BigDecimal price;
 
     private String type;
+
 }

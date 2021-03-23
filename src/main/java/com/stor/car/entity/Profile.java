@@ -2,7 +2,10 @@ package com.stor.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stor.car.entity.enums.TypeProfile;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,17 +15,16 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
+@Builder
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Profile extends AbstractEntity{
     public Profile() {
         super();
-        System.out.println("cobtruct");
         add(TypeProfile.USER);
     }
     public Profile(User user, String thumbnail, List<TypeProfile> typeProfiles){
         super();
-        System.out.println("sddfsdf");
         add(TypeProfile.USER);
     }
 
