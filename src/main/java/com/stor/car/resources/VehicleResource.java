@@ -47,6 +47,11 @@ public class VehicleResource {
         return new ResponseEntity<>(vehicleService.uploadImage(fileUpload, id), HttpStatus.OK);
     }
 
+    @PostMapping("/{id}/thumbnail")
+    public ResponseEntity<?> uploadThumbnail(@PathVariable Long id,  @RequestBody FileUpload fileUpload){
+        return new ResponseEntity<>(vehicleService.uploadImage(fileUpload, id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOne(@PathVariable Long id){
         vehicleService.deleteById(id);

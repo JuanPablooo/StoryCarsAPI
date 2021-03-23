@@ -39,18 +39,14 @@ public class FireBaseStorageService {
         }
     }
 
-    public String upLoad(FileUpload file, String name){
+    public String uploadFileBase4(FileUpload file, String name){
         Bucket bucket = StorageClient.getInstance().bucket();
-        byte[] fileEmBytes = Base64.getDecoder().decode(file.getBase64());
 
-        Blob blob = bucket.create(
-                name,
-                fileEmBytes,
-                file.getMimeType()
-        );
+        byte[] fileEmBytes = Base64.getDecoder().decode(file.getBase64());
+        Blob blob = bucket.create( name, fileEmBytes, file.getMimeType() );
 
         blob.createAcl(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
-        return  URL_FIREBASE + bucket.getName() + "/"+ name ;
+        return  URL_FIREBASE + bucket.getName() + "/" + name ;
     }
 
 }

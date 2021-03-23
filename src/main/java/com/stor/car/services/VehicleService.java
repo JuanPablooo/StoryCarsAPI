@@ -8,7 +8,6 @@ import com.stor.car.uploads.FireBaseStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -17,6 +16,8 @@ public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
     private final FireBaseStorageService fireBase;
+    private static final String  URL_FOLDER = "story-cars/vehicle/";
+    private static final String  MIME_TYPE_IMG = "image/png";
 
     @Autowired
     public VehicleService(VehicleRepository vehicleRepository, FireBaseStorageService fireBase) {
@@ -54,15 +55,18 @@ public class VehicleService {
     public FileUploadUrl uploadImage(FileUpload file, Long id) {
         Vehicle vehicle = getByIdOrThrow(id);
         //TODO refactor strategy of generate random name  to image
-        FileUploadUrl url = fazIUploadArquivo(file);
+        FileUploadUrl url = creteNameImageAndMakeUpload(file);
+        file.setMimeType(MIME_TYPE_IMG);
+
         vehicle.setThumbnail(url.getUrl());
         vehicleRepository.save(vehicle);
         return url;
     }
-    //TODO create service image and move this method
-    public FileUploadUrl fazIUploadArquivo (FileUpload file){
-        String name =  System.currentTimeMillis() + "";
-        return new FileUploadUrl(fireBase.upLoad(file, name));
+
+
+    private FileUploadUrl creteNameImageAndMakeUpload(FileUpload file){
+        String name =  URL_FOLDER + System.currentTimeMillis();
+        return new FileUploadUrl(fireBase.uploadFileBase4(file, name));
     }
 
     public void deleteById(Long id){
