@@ -37,7 +37,7 @@ public class VehicleService {
     }
 
     public Vehicle findOneById(Long id){
-        return getById(id);
+        return getByIdOrThrow(id);
     }
 
     public Vehicle save(Vehicle vehicle){
@@ -47,10 +47,6 @@ public class VehicleService {
     public Vehicle update(Vehicle vehicle){
         getByIdOrThrow(vehicle.getId());
         return vehicleRepository.save(vehicle);
-    }
-
-    private Vehicle getById(Long id) {
-        return getByIdOrThrow(id);
     }
 
     public FileUploadUrl uploadImageThumbnailToVehicle(FileUpload file, Long id) {
@@ -73,10 +69,9 @@ public class VehicleService {
         return fileUploadUrl;
     }
 
-    public FileUploadUrl uploadImage(FileUpload file) {
-        FileUploadUrl fileUploadUrl = creteNameImageAndMakeUpload(file);
+    private FileUploadUrl uploadImage(FileUpload file) {
         file.setMimeType(MIME_TYPE_IMG);
-        return fileUploadUrl ;
+        return creteNameImageAndMakeUpload( file );
     }
 
     private FileUploadUrl creteNameImageAndMakeUpload(FileUpload file){
