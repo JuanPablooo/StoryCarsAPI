@@ -9,3 +9,8 @@ spring:
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
+#  jackson:
+#    property-naming-strategy: SNAKE_CASE
+
+#  jackson:
+#    property-naming-strategy=SNAKE_CASE:
