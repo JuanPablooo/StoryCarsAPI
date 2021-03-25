@@ -1,6 +1,7 @@
 package com.stor.car.resources;
 
 import com.stor.car.entity.Vehicle;
+import com.stor.car.security.UserPrincipal;
 import com.stor.car.services.VehicleService;
 import com.stor.car.uploads.FileUpload;
 import com.stor.car.uploads.FileUploadUrl;
@@ -9,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,6 +30,8 @@ public class VehicleResource {
 
     @GetMapping
     public ResponseEntity<Page<Vehicle>> getAllPageble(Pageable pageable){
+//        UserPrincipal userPrincipal =  (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(userPrincipal.getAuthorities());
         return new ResponseEntity<>(vehicleService.getVehiclesPageable(pageable), HttpStatus.OK);
     }
 
