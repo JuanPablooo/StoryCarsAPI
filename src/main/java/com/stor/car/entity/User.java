@@ -1,13 +1,17 @@
 package com.stor.car.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import com.stor.car.entity.enums.TypeProfile;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Data
@@ -22,7 +26,19 @@ public class User extends AbstractEntity{
 
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Profile profile;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//    @JsonManagedReference
+//    private Profile profile;
+
+    @ElementCollection(fetch =  FetchType.EAGER)
+    @CollectionTable(name = "type_profile")
+    private Set<Integer> profileTypes = new HashSet<>();
+
+    public Set<TypeProfile> getProfileTypes() {
+        return profileTypes.stream().map(TypeProfile::toEnum).collect(Collectors.toSet());
+    }
+
+    public void add(TypeProfile typeProfile) {
+        this.profileTypes.add(typeProfile.getId());
+    }
 }
