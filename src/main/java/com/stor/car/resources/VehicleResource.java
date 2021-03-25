@@ -2,37 +2,66 @@ package com.stor.car.resources;
 
 import com.stor.car.entity.Vehicle;
 import com.stor.car.services.VehicleService;
+import com.stor.car.uploads.FileUpload;
+import com.stor.car.uploads.FileUploadUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/v1/vehicle")
+@RequestMapping("/vehicle")
 public class VehicleResource {
 
-    @Autowired
-    private VehicleService vehicleService;
+    private final VehicleService vehicleService;
 
-    @GetMapping("")
-    public ResponseEntity<Page<Vehicle>> getAll(Pageable pageable){
-        return new ResponseEntity<>(vehicleService.listVehicles(pageable), HttpStatus.OK);
+    @Autowired
+    public VehicleResource(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
 
-    @GetMapping(value = {"/{id}", "/{id}/"})
+
+    @GetMapping
+    public ResponseEntity<Page<Vehicle>> getAllPageble(Pageable pageable){
+        return new ResponseEntity<>(vehicleService.getVehiclesPageable(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Vehicle>> getAll(){
+        return new ResponseEntity<>(vehicleService.getAllVehiclesNoPageable(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Vehicle> getOne(@PathVariable Long id){
         return new ResponseEntity<>(vehicleService.findOneById(id), HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Vehicle> save(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
     }
 
-    @PutMapping(value = {"", "/"})
+    @PutMapping
     public ResponseEntity<Vehicle> update(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.update(vehicle), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/image")
+    public ResponseEntity<FileUploadUrl> uploadImage(@PathVariable Long id,  @RequestBody FileUpload fileUpload){
+        return new ResponseEntity<>(vehicleService.uploadImageToVehicle(fileUpload, id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/thumbnail")
+    public ResponseEntity<FileUploadUrl> uploadThumbnail(@PathVariable Long id, @RequestBody FileUpload fileUpload){
+        return new ResponseEntity<>(vehicleService.uploadImageThumbnailToVehicle(fileUpload, id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOne(@PathVariable Long id){
+        vehicleService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
