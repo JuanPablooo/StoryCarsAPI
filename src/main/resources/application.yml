@@ -9,3 +9,6 @@ spring:
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
+jwt:
+  secret: palavrasecretatoken
+  expiration: 3000000
