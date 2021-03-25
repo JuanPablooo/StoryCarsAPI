@@ -2,9 +2,11 @@ package com.stor.car.services;
 
 import com.stor.car.entity.User;
 import com.stor.car.repositories.UserRepository;
+import com.stor.car.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -13,6 +15,22 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public static UserPrincipal userAutenticado(){
+        try {
+            return (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        catch (Exception e){
+            return  null;
+        }
+    }
+
+    public static String getJsonToken(String token, String username, Long id) {
+        return "{\"message\": \"Logado no sistema\", "
+                + "\"token\": \""+token+"\", "
+                + "\"usuario\": {\"email\" : \""+username+"\", " +
+                "\"id\": "+id+"}}";
+    }
 
     public Page<User> listUsers(Pageable pageable){
         return userRepository.findAll(pageable);
