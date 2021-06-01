@@ -33,4 +33,6 @@ public class CustomUserDetailService implements UserDetailsService {
         String token = jwtUtil.generateToken(user.getUsername());
         return UserService.getJsonToken(token, user.getUsername(), user.getId());
     }
+
+
 }
